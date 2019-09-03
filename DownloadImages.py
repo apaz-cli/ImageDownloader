@@ -16,6 +16,7 @@ if argnum > 1:
         print("This is a simple script which downloads all the URLs in a file.")
         print("Usage: \"DownloadURLs url_file_path download_folder_path\"")
         print("If the name of a folder contains a space in it, you may have to escape that space with \\.")
+        exit
 
 
 if argnum > 1:
