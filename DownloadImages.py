@@ -1,21 +1,20 @@
-import os.path, mimetypes, urllib.request, wget, random, shutil, requests, sys, getpass
-from urllib.parse import urlparse
+import os.path, random, shutil, requests, sys
 
 
 # Default arguments
-links_path = "URLs.txt"
 download_folder_path = os.path.expanduser('~/Downloads')
+links_path = download_folder_path + os.sep + 'URLs.txt'
 
 argnum = len(sys.argv)
 if argnum > 3:
-    print("Expecting arguments in the form \"DownloadURLs url_file_path downoad_folder_path\".")
-    print("If you leave the arguments blank, they should default to \"URLs.txt\" and your default Downloads folder respectively.")
-    print("If the name of a folder contains a space in it, you may have to escape that space with \\.")
+    print("Expecting arguments in the form \"DownloadURLs url_file_path download_folder_path\".")
+    print("If you leave the arguments blank, they should default to \"URLs.txt\" in your OS's default Downloads folder and the default Downloads folder respectively.")
+    print("If the name of a folder contains a space, you may have to escape that space with \\.")
     exit
 if argnum > 1:
     if sys.argv[1] == "-h" or sys.argv[1] == "--help":
         print("This is a simple script which downloads all the URLs in a file.")
-        print("Usage: \"DownloadURLs url_file_path downoad_folder_path\"")
+        print("Usage: \"DownloadURLs url_file_path download_folder_path\"")
         print("If the name of a folder contains a space in it, you may have to escape that space with \\.")
 
 
@@ -58,7 +57,7 @@ for link in links:
         link = link[0, query]
 
     filename = os.path.basename(link)
-    # resolve collisions
+    # Resolve collisions
     while os.path.exists(filename):
             filename += random.randint(0, 9)
     
