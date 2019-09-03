@@ -4,16 +4,17 @@ A simple python script that downloads all the URLs in a text file into a folder.
 # Usage Examples:
  
 **Linux example:**
-
+```
 mkdir ~/Downloads/DownloadedURLs
 
 python ~/Downloads/ImageDownloader-master/DownloadImages.py ~/Downloads/URLs.txt ~/Downloads/DownloadedURLs
-
+```
 **Windows example:**
-
+```
 mkdir C:\Users\%username%\Downloads\DownloadedURLs
 
 C:\python27\python.exe C:\Users\%username%\Downloads\ImageDownloader-master\DownloadImages.py C:\Users\%username%\Downloads\URLs.txt C:\Users\%username%\Downloads\DownloadedURLs
+```
 
 
 
