@@ -24,7 +24,7 @@ if argnum > 1:
 if argnum == 3:    
     download_folder_path = sys.argv[2]
 
-
+# Fetch/verify dependencies.
 print("Verifying requests module installation.")
 subprocess.call([sys.executable, "-m", "pip", "install", "requests"])
 import requests
@@ -51,6 +51,7 @@ def download_file(url, folder_path, file_name):
 
 # Download all links, checking for collisions.
 for link in links:
+
     # Deal with potential Windows line terminator issues
     link = link.strip()
 
@@ -62,6 +63,8 @@ for link in links:
     query = link.rfind('?')
     if query > 0:
         link = link[0, query]
+
+    print("Fetching " + link)
 
     filename = os.path.basename(link)
     # Resolve collisions
