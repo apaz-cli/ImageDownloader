@@ -1,4 +1,4 @@
-import os.path, random, shutil, requests, sys
+import os.path, random, shutil, sys, subprocess, pip
 
 
 # Default arguments
@@ -18,11 +18,17 @@ if argnum > 1:
         print("If the name of a folder contains a space in it, you may have to escape that space with \\.")
         exit
 
-
+# Use default arguments or command line arguments.
 if argnum > 1:
     links_path = sys.argv[1]
 if argnum == 3:    
     download_folder_path = sys.argv[2]
+
+
+print("Verifying requests module installation.")
+subprocess.call([sys.executable, "-m", "pip", "install", "requests"])
+import requests
+
 
 # Load file into list
 links = []
