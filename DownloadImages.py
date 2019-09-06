@@ -1,10 +1,17 @@
-import os.path, random, shutil, sys, subprocess, pip
+import os.path, random, shutil, sys, subprocess, pip, errno
 
+
+def get_downloads_folder_path():
+    if sys.platform.startswith('win'):
+        return "C:\\Users\\" + "%" + "username" + "%" + "\\Downloads"
+    else:
+        return os.path.expanduser('~/Downloads')
 
 # Default arguments
-download_folder_path = os.path.expanduser('~/Downloads')
-links_path = download_folder_path + os.sep + 'URLs.txt'
+target_folder_path = get_downloads_folder_path() + os.sep + "ImageDownloader Downloads"
+URLs_path = get_downloads_folder_path() + os.sep + 'URLs.txt'
 
+# Overwrite arguments, use defaults, or display help and exit.
 argnum = len(sys.argv)
 if argnum > 3:
     print("Expecting arguments in the form \"DownloadURLs url_file_path download_folder_path\".")
@@ -17,23 +24,38 @@ if argnum > 1:
         print("Usage: \"DownloadURLs url_file_path download_folder_path\"")
         print("If the name of a folder contains a space in it, you may have to escape that space with \\.")
         exit
-
-# Use default arguments or command line arguments.
-if argnum > 1:
-    links_path = sys.argv[1]
+    # Use default arguments or command line arguments, if they're not just using the help command.
+    else:
+        URLs_path = sys.argv[1]
 if argnum == 3:    
-    download_folder_path = sys.argv[2]
+    target_folder_path = sys.argv[2]
+
+# If they used the default target folder, create if not exists
+if target_folder_path == get_downloads_folder_path() + os.sep + "ImageDownloader Downloads":
+    # It's convention that you shouldn't look before you leap. Try to make the path, then handle the raised exception resulting if it already exists.
+    try:
+        os.mkdir(target_folder_path)
+    except OSError as e:
+        if e == errno.EEXIST:
+            # Ignore exception if already exists
+            pass
+        elif not os.path.exists(get_downloads_folder_path()):
+            print("Cannot find your default downloads folder path.")
+        
+
 
 # Fetch/verify dependencies.
 print("Verifying requests module installation.")
 subprocess.call([sys.executable, "-m", "pip", "install", "requests"])
 import requests
 
+print(URLs_path)
+print(target_folder_path)
 
 # Load file into list
 links = []
 try:
-    with open(links_path, 'r') as filehandle:
+    with open(URLs_path, 'r') as filehandle:
         for line in filehandle:
             links.append(line)    
 except:
@@ -71,4 +93,4 @@ for link in links:
     while os.path.exists(filename):
             filename += random.randint(0, 9)
     
-    download_file(link, download_folder_path, filename)
+    download_file(link, target_folder_path, filename)
