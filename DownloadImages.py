@@ -49,8 +49,7 @@ print("Verifying requests module installation.")
 subprocess.call([sys.executable, "-m", "pip", "install", "requests"])
 import requests
 
-print(URLs_path)
-print(target_folder_path)
+
 
 # Load file into list
 links = []
