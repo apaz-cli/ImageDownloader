@@ -1,9 +1,9 @@
-import os.path, random, shutil, sys, subprocess, pip, errno
+import os.path, random, shutil, sys, subprocess, pip, errno, getpass
 
 
 def get_downloads_folder_path():
     if sys.platform.startswith('win'):
-        return "C:\\Users\\" + "%" + "username" + "%" + "\\Downloads"
+        return "C:" +  os.sep + "Users" +  os.sep + getpass.getuser()  +  os.sep + "Downloads"
     else:
         return os.path.expanduser('~/Downloads')
 
@@ -11,19 +11,23 @@ def get_downloads_folder_path():
 target_folder_path = get_downloads_folder_path() + os.sep + "ImageDownloader Downloads"
 URLs_path = get_downloads_folder_path() + os.sep + 'URLs.txt'
 
+print(target_folder_path)
+print(URLs_path)
+print(os.sep)
+
 # Overwrite arguments, use defaults, or display help and exit.
 argnum = len(sys.argv)
 if argnum > 3:
     print("Expecting arguments in the form \"DownloadURLs url_file_path download_folder_path\".")
     print("If you leave the arguments blank, they should default to \"URLs.txt\" in your OS's default Downloads folder and the default Downloads folder respectively.")
     print("If the name of a folder contains a space, you may have to escape that space with \\.")
-    exit
+    sys.exit()
 if argnum > 1:
     if sys.argv[1] == "-h" or sys.argv[1] == "--help":
         print("This is a simple script which downloads all the URLs in a file.")
         print("Usage: \"DownloadURLs url_file_path download_folder_path\"")
         print("If the name of a folder contains a space in it, you may have to escape that space with \\.")
-        exit
+        sys.exit()
     # Use default arguments or command line arguments, if they're not just using the help command.
     else:
         URLs_path = sys.argv[1]
@@ -57,16 +61,17 @@ try:
     with open(URLs_path, 'r') as filehandle:
         for line in filehandle:
             links.append(line)    
-except:
-    pass
+except IOError as e:
+    print('error', str(e))
+    pass    
 if not links:
     print("Please provide a valid file path to a nonempty file.")
-    exit
+    sys.exit()
 
 # Download into the path specified with the name specified, without checking for collisions.
 def download_file(url, folder_path, file_name): 
     response = requests.get(url, stream=True)
-    with open(folder_path + os.sep + file_name, 'wb') as out_file:
+    with open(folder_path + os.sep + file_name, 'wb+') as out_file:
         shutil.copyfileobj(response.raw, out_file)
     del response
 
