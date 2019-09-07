@@ -10,9 +10,11 @@ mkdir ~/Downloads/DownloadedURLs
 python ~/Downloads/ImageDownloader-master/DownloadImages.py ~/Downloads/URLs.txt ~/Downloads/DownloadedURLs
 ```
 **Windows example:**
+Windows stands out as the only modern operating system which does not actually come with a Python interpreter. Install one, then for the first argument of running the script, use the path to the python executable. The easiest way to do so is through the Windows 10 app store. If you do it that way, you can use just the `python` command, instead of a path to the python executable.
 ```
 mkdir C:\Users\%username%\Downloads\DownloadedURLs
 
+REM The path to the python executable that you're using, or python for windows 10 app store version
 C:\python27\python.exe C:\Users\%username%\Downloads\ImageDownloader-master\DownloadImages.py C:\Users\%username%\Downloads\URLs.txt C:\Users\%username%\Downloads\DownloadedURLs
 ```
 
