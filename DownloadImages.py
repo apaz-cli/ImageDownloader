@@ -46,7 +46,7 @@ if target_folder_path == get_downloads_folder_path() + os.sep + "ImageDownloader
 
 # Fetch/verify dependencies.
 print("Verifying requests module installation.")
-subprocess.call([sys.executable, "-m", "pip", "install", "requests"])
+subprocess.call([sys.executable, "-m", "pip", "install", "--user", "requests"])
 import requests
 
 
