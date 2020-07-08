@@ -21,7 +21,7 @@ mkdir C:\Users\%username%\Downloads\DownloadedURLs
 
 REM The path to the python executable that you're using, or python for windows 10 app store version.
 REM Additionally, the default Windows .zip extractor creates an additional intermediate folder, whereas most others do not.
-C:\python27\python.exe C:\Users\PazderaAaron\Downloads\ImageDownloader-master\ImageDownloader-master\DownloadImages.py C:\Users\%username%\Downloads\URLs.txt C:\Users\%username%\Downloads\DownloadedURLs
+C:\python27\python.exe C:\Users\apaz\Downloads\ImageDownloader-master\ImageDownloader-master\DownloadImages.py C:\Users\%username%\Downloads\URLs.txt C:\Users\%username%\Downloads\DownloadedURLs
 ```
 
 
